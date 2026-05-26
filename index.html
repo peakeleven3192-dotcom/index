@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>解析事例 一覧 | 沿岸海洋調査㈱</title>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=BIZ+UDPMincho:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0d1e36;
+  --blue:    #1a4f8a;
+  --blue-md: #2a6ab0;
+  --blue-lt: #d8eaf8;
+  --teal:    #0a6655;
+  --orange:  #e06666; /* 測器稼働状況表用に暖色系を追加 */
+  --bg:      #f4f7fb;
+  --white:   #ffffff;
+  --border:  #cdd8e8;
+  --text:    #111827;
+  --sub:     #374151;
+  --mute:    #6b7a90;
+  --serif: 'BIZ UDPMincho', serif;
+  --sans:  'BIZ UDPGothic', sans-serif;
+  --mono:  'DM Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HEADER ── */
+header{
+  background:var(--navy);
+  color:white;
+  padding:56px 0 48px;
+  position:relative;
+  overflow:hidden;
+}
+.hd-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(42,106,176,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(42,106,176,.08) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.hd-inner{
+  max-width:880px;margin:0 auto;padding:0 36px;
+  position:relative;z-index:2;
+}
+.hd-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:rgba(255,255,255,.35);text-transform:uppercase;
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.hd-label::before{
+  content:'';display:block;width:28px;height:1px;
+  background:rgba(255,255,255,.3);
+}
+header h1{
+  font-family:var(--serif);
+  font-size:clamp(20px,3.2vw,30px);
+  font-weight:700;line-height:1.5;
+  margin-bottom:10px;
+}
+.hd-sub{
+  font-size:14px;color:rgba(255,255,255,.5);
+  font-family:var(--mono);letter-spacing:.04em;
+}
+
+/* ── MAIN ── */
+main{max-width:880px;margin:0 auto;padding:52px 36px 88px;}
+
+.section-head{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:28px;
+}
+.section-head h2{
+  font-family:var(--serif);font-size:15px;font-weight:700;
+  color:var(--navy);letter-spacing:.04em;
+}
+.section-head::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+
+/* ── CARD GRID ── */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:20px;
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  opacity:0;
+  animation:fadeUp .5s ease forwards;
+}
+.card:nth-child(1){animation-delay:.05s;}
+.card:nth-child(2){animation-delay:.15s;}
+.card:nth-child(3){animation-delay:.25s;}
+.card:nth-child(4){animation-delay:.35s;} /* 4枚目の遅延を追加 */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px);}
+  to{opacity:1;transform:none;}
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 28px rgba(13,30,54,.12);
+  border-color:var(--blue-md);
+}
+
+/* カードの上部カラーバー */
+.card-bar{height:4px;}
+.bar-blue{background:var(--blue-md);}
+.bar-teal{background:var(--teal);}
+.bar-navy{background:var(--navy);}
+.bar-orange{background:var(--orange);} /* 新規追加 */
+
+/* カードボディ */
+.card-body{padding:22px 22px 16px;flex:1;}
+.card-tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  color:var(--mute);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.card-title{
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  color:var(--navy);line-height:1.55;margin-bottom:8px;
+}
+.card-desc{
+  font-size:13px;color:var(--sub);line-height:1.75;
+}
+
+/* カードフッター */
+.card-foot{
+  padding:12px 22px 14px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:#fafbfd;
+}
+.card-url{
+  font-family:var(--mono);font-size:10px;
+  color:var(--mute);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:200px;
+}
+.card-arrow{
+  font-size:16px;color:var(--blue-md);
+  flex-shrink:0;transition:transform .18s;
+}
+.card:hover .card-arrow{transform:translateX(4px);}
+
+/* ── INFO BAR ── */
+.info-bar{
+  margin-top:48px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:4px solid var(--blue-md);
+  border-radius:4px;
+  padding:14px 20px;
+  font-size:13px;color:var(--sub);
+  display:flex;align-items:flex-start;gap:12px;
+}
+.info-bar::before{
+  content:'i';
+  display:flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--blue-md);color:white;
+  font-family:var(--mono);font-size:11px;font-weight:700;
+  flex-shrink:0;margin-top:1px;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--navy);
+  color:rgba(255,255,255,.35);
+  text-align:center;padding:24px;
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:.07em;line-height:2;
+}
+
+@media(max-width:600px){
+  .hd-inner,main{padding-left:20px;padding-right:20px;}
+  .card-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-grid"></div>
+  <div class="hd-inner">
+    <div class="hd-label">Technical Reports</div>
+    <h1>海洋調査 解析事例集</h1>
+    <div class="hd-sub">沿岸海洋調査㈱ 技術開発部</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="section-head">
+    <h2>公開レポート一覧</h2>
+  </div>
+
+  <div class="card-grid">
+
+    <a class="card"
+       href="https://peakeleven3192-dotcom.github.io/flow-square-test/"
+       target="_blank" rel="noopener">
+      <div class="card-bar bar-blue"></div>
+      <div class="card-body">
+        <div class="card-tag">CFD · 流体計算</div>
+        <div class="card-title">流体計算ソフト FlowSquare+<br>動作検証報告</div>
+        <div class="card-desc">
+          流体解析ソフトの動作テストとして、円柱周りのストローハル数・形状別Cd値の検証を実施。
+          ADCP中層係留ブイの抗力推定および係留索の傾斜評価への応用事例を収録。
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="card-url">flow-square-test</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="card"
+       href="https://peakeleven3192-dotcom.github.io/Shoreline-detection-using-satellite/"
+       target="_blank" rel="noopener">
+      <div class="card-bar bar-teal"></div>
+      <div class="card-body">
+        <div class="card-tag">衛星リモートセンシング · 汀線変化</div>
+        <div class="card-title">Sentinel-2衛星を使った<br>海岸線検出実験</div>
+        <div class="card-desc">
+          無償公開のSentinel-2マルチスペクトル画像を用いて汀線を検出。
+          伊豆諸島・新島 羽伏浦海岸を対象に2019〜2025年（7年間）の汀線変化をモニタリングした事例。
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="card-url">Shoreline-detection-using-satellite</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="card"
+       href="https://peakeleven3192-dotcom.github.io/xb200_buoy_test/"
+       target="_blank" rel="noopener">
+      <div class="card-bar bar-navy"></div>
+      <div class="card-body">
+        <div class="card-tag">波浪観測 · 機器検証</div>
+        <div class="card-title">波浪ブイ（NexSens XB-200）<br>データ検証報告</div>
+        <div class="card-desc">
+          導入検討中の波浪ブイとナウファス直江津地点のデータを比較検証。
+          波高の相関係数 R=0.99 を確認し、推奨パラメータと定点保持性能を評価した報告書。
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="card-url">xb200_buoy_test</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="card"
+       href="https://peakeleven3192-dotcom.github.io/inst_Schedule_Mng/"
+       target="_blank" rel="noopener">
+      <div class="card-bar bar-orange"></div>
+      <div class="card-body">
+        <div class="card-tag">機材管理 · 運用マニュアル</div>
+        <div class="card-title">測器稼働状況表<br>操作説明書</div>
+        <div class="card-desc">
+          WaveHunterやSignature等の海洋測器の設置状況・稼働期間を日別管理する共有スプレッドシートの解説書。
+          自動色付けルールや、PC・スマホ双方からの時刻入力パネル操作手順を網羅。
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="card-url">inst_Schedule_Mng</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div><div class="info-bar">
+    各レポートは沿岸海洋調査㈱の技術開発・検討過程における内部資料です。
+    内容のご利用・引用の際はお問い合わせください。
+  </div>
+
+</main>
+
+<footer>
+  <div>沿岸海洋調査株式会社 技術開発部</div>
+  <div>© 2026 Coastal Ocean Survey Co., Ltd.</div>
+</footer>
+
+</body>
+</html>
